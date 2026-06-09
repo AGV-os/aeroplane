@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>aeroplane</title>
+  <style>
+    #mainmenu{
+      position: fixed;
+      width: 90%;
+      height: 90%;
+      top: 5%;
+      left: 5%;
+      z-index: 10;
+      transition: opacity 1s;
+    }
+    #play{
+      position: absolute;
+      width: 50%;
+      left: 25%;
+      top: 40%;
+      height: 50px;
+      background: gold;
+      border: 2px solid red;
+      font-size: 30px;
+    }
+    #play:active{
+      background: #555500;
+    }
+    #lbl{
+      font-size: 700%;
+      position: fixed;
+      top: -50px;
+      left: 0px;
+      width: 100%;
+      text-align: center;
+    }
+    #selectmode{
+      width: 90%;
+      height: 90%;
+      position: fixed;
+      background: #0006639C;
+      left: 5%;
+      top: 5%;
+      z-index: 5;
+      transition: opacity 1s;
+      opacity: 0;
+    }
+    #back{
+      background: #000AA8;
+      border: 2px solid #00055A;
+      font-size: 20px;
+      color: #7981FF;
+      height: 50px;
+      width: 150px;
+      position: absolute;
+      border-radius: 0% 100px 100px 0%;
+    }
+    #lbl1{
+      position: absolute;
+      width: 50%;
+      text-align: center;
+      left: 25%;
+      color: #24AAFF;
+    }
+    .mode{
+      position: absolute;
+      width: 80%;
+      background: #009BFF;
+      border: 2px solid #5ABFFF;
+      left: 10%;
+      height: 50px;
+      font-size: 40px;
+      color: #00406A;
+      
+    }
+    .mode:active{
+      background: #A4DBFF;
+    }
+    #aerpln{
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      left: calc(50% - 150px);
+      bottom: 50px;
+      z-index: 0;
+    }
+  </style>
+</head>
+
+<body bgcolor="#0099ff">
+  
+  <div id="mainmenu">
+    <h1 id="lbl">aeroplane</h1>
+    <button onclick="goToSelect()" id="play">играть</button>
+    <img id="aerpln" src="/sprites/aeroplane.png">
+  </div>
+  <div id="selectmode">
+    <button id="back" onclick="back()">назад</button>
+    
+    <h1 id="lbl1">выбирете режим игры</h1>
+    
+    <button onclick="location.assign('mainGame.html')" class="mode" style="top:100px;" id="normalmode">обычный, прогрессивный режим
+    </button>
+    <button onclick="location.assign('/automatMode/automatmode.html')" class="mode" style="top:160px;" id="automat">автоматчик, прогрессивный режим
+    </button>
+    <button onclick="location.assign('/kingMode/main.html')" class="mode" style="top:220px;background: gold;border-color: #805500; color: black;" id="king">королевский режим
+    </button>
+    <button onclick="location.assign('/revengeMode/main.html')" class="mode" style="top:280px;background: red;border-color: black; color: #900;" id="king">режим мести
+    </button>
+    
+  </div>
+  
+  <script>
+    
+    function goToSelect(){
+      document.getElementById('mainmenu').style.opacity = 0
+      document.getElementById('mainmenu').style.pointerEvents = 'none'
+      document.getElementById('selectmode').style.opacity = 1
+    }
+    function back(){
+      document.getElementById('mainmenu').style.opacity = 1
+      document.getElementById('mainmenu').style.pointerEvents = ''
+      document.getElementById('selectmode').style.opacity = 0
+    }
+    
+  </script>
+</body>
+
+</html>
