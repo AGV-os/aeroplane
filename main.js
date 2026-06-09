@@ -1,11 +1,16 @@
 const cnv = document.createElement("canvas");
 const ctx = cnv.getContext("2d");
 
+cnv.style.zIndex = 0
+
 let birds = [];
 let bullets = [];
 let clouds = [];
 
-let score = 0
+
+let progBar = document.getElementById("prog")
+let prog = -10
+
 let birdSpeed = 3
 
 let createMode = false
@@ -259,6 +264,17 @@ setInterval(() => {
 // =======================
 
 function addBirdsWave() {
+    if(prog >= 100) return;
+    prog += 10
+    progBar.value = prog 
+    if(prog >= 100){
+        pause()
+        document.getElementById("pauseBtn").remove()
+        document.getElementById("winlbl").style.opacity = 1
+        document.getElementById("winlbl2").style.opacity = 1
+        document.getElementById("reloadBtn").style.opacity = 1
+        document.getElementById("reloadBtn").style.pointerEvents = 'auto'
+    }
     if(createMode){
         wave = 5
         birdSpeed = 3 
@@ -270,7 +286,7 @@ function addBirdsWave() {
     setInterval(() => {
         const bird = new AnimatedSprite(
             -100,
-            Math.random() * innerHeight-200,
+            Math.floor(Math.random() * innerHeight-200)+100,
             100,
             100
         );
@@ -349,8 +365,9 @@ class Bullet extends Entity {
         
     }
 }
-
-addEventListener("touchstart", (e) => {
+let reload = false
+addEventListener("touchmove", (e) => {
+    if(reload) return;
     for (const t of e.changedTouches) {
         const angle = Math.atan2(t.clientY - innerHeight + 100, t.clientX - innerWidth + 100)
         
@@ -358,6 +375,11 @@ addEventListener("touchstart", (e) => {
         bul.speed *= wave
         game.add(bul)
         bullets.push(bul)
+        reload = true
+        const rld = setTimeout(()=>{
+            reload = false
+            clearTimeout(rld)
+        }, 100)
     }
 })
 
@@ -422,9 +444,18 @@ function gameLoop(time) {
             
             birds[i].remove();
             birds.splice(i, 1);
-            score--
-            document.getElementById('score').innerText = 'счёт: '+score
             
+            pause()
+            document.getElementById("pauseBtn").remove()
+            document.getElementById("loselbl").style.opacity = 1
+            document.getElementById("loselbl2").style.opacity = 1
+            prog = 200
+            document.getElementById("reloadBtn").style.opacity = 1
+            document.getElementById("reloadBtn").style.pointerEvents = 'auto'
+        }
+        if(birds[i].position.y <= 0){
+            birds[i].remove();
+            birds.splice(i, 1);
         }
     }
     
@@ -443,8 +474,6 @@ function gameLoop(time) {
                 
                 birds.splice(i, 1);
                 bullets.splice(j, 1);
-                score++
-                document.getElementById("score").innerText = 'счёт: ' + score
                 break;
                 
             }
@@ -474,20 +503,79 @@ function pause() {
 let ultbtn = document.getElementById("ultabtn")
 function ulta() {
     ultbtn.disabled = true
-    for(let i = 0; i < innerWidth; i += 20){
-        let bull = new Bullet(i, innerHeight-50, Math.PI/180*270)
-        game.add(bull)
-        bullets.push(bull)
-    }
-    for(let i = 0; i < innerHeight; i += 20){
-        let bull = new Bullet(innerWidth, i, Math.PI/180*180)
-        bull.speed = 20
+    ultbtn.style.background = '#500'
+    
+    for(let i = 0; i < 360; i += 5){
+        let a = i*(Math.PI/180)
+        let bull = new Bullet(innerWidth/2, innerHeight/2, a)
+        bull.w = 200
         game.add(bull)
         bullets.push(bull)
     }
     setTimeout(()=>{
+        for(let i = 0; i < 360; i += 5){
+        let a = i*(Math.PI/180)
+        let bull = new Bullet(innerWidth/2, innerHeight/2, a)
+        bull.w = 200
+        game.add(bull)
+        bullets.push(bull)
+    }
+    }, 500)
+    
+    setTimeout(()=>{
         ultbtn.disabled = false
+        ultbtn.style.background = 'red'
     }, 5000)
+}
+let skill1Reloading = false
+let sk1btn = document.getElementById('skill1')
+function skill1() {
+    if(skill1Reloading) return;
+    sk1btn.style.background = '#005'
+    skill1Reloading = true
+    for(let i = 0; i < innerHeight; i += 25){
+        let lastnum = i.toString()
+        lastnum = lastnum.split("")[lastnum.length - 1]
+        let angle
+        let x = 0
+        if(lastnum == "5"){
+            angle = 0
+        } else if (lastnum == "0"){
+            angle = 180*(Math.PI/180)
+            x = innerWidth
+        }
+        let bull = new Bullet(x, i, angle)
+        game.add(bull)
+        bullets.push(bull)
+    }
+    const rld = setTimeout(()=>{
+        skill1Reloading = false 
+        sk1btn.style.background = 'blue'
+        clearTimeout(rld)
+    }, 2000)
+}
+
+let skill2reload = false
+let sk2btn = document.getElementById("skill2")
+function skill2(){
+    if(skill2reload) return;
+    sk2btn.style.background = '#005'
+    skill2reload = true
+    for(let i = 0; i < 20; i += 10){
+        for(let j = 0; j < innerHeight; j += 10){
+            let x = 300+i*2
+            let angle = Math.PI 
+            let bul = new Bullet(x, j, angle)
+            bul.speed = 0 
+            game.add(bul)
+            bullets.push(bul)
+        }
+    }
+    const rld = setTimeout(()=>{
+        skill2reload = false 
+        sk2btn.style.background = 'blue'
+        clearTimeout(rld)
+    }, 60000)
 }
 
 

@@ -1,0 +1,134 @@
+body {
+    font-size: 15pt;
+    margin: 0px;
+    user-select: none;
+    max-width: 100%;
+    margin-top: -20px;
+    overscroll-behavior-y: none;
+}
+#score{
+    position: fixed;
+    z-index: 10;
+}
+#wave{
+    position: fixed;
+    top: 100px;
+    z-index: 11;
+}
+#ultabtn{
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    bottom: 10px;
+    left: 10px;
+    background: red;
+    border-radius: 100px;
+    z-index: 12;
+}
+#skill1, #skill2{
+    position: fixed;
+    width: 80px;
+    height: 80px;
+    bottom: 10px;
+    left: 200px;
+    background: blue;
+    border-radius: 100px;
+    z-index: 12;
+}
+#skill2{
+    left: 300px;
+}
+.pauseBtn{
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    background: #55555555;
+    right: 10px;
+    font-size: 30px;
+    font-weight: 900;
+    border: none;
+    position: fixed;
+    z-index: 13;
+    top: 10px;
+}
+#createMode{
+    position: fixed;
+    width: 100px;
+    background: #55555555;
+    z-index: 14;
+    right: 10px;
+    bottom: 10px;
+}
+#createMode p{
+    position: absolute;
+    font-size: 10px;
+    left: 30px;
+}
+#prog{
+    position: fixed;
+    z-index: 20;
+    width: 80%;
+    left: 10%;
+    top: 20px;
+}
+#winlbl{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    font-size: 100px;
+    color: lime;
+    z-index: 20;
+    top: 0px;
+    opacity: 0;
+    transition: opacity 1s;
+    pointer-events: none;
+}
+#winlbl2{
+    width: 100%;
+    position: fixed;
+    text-align: center;
+    font-size: 30px;
+    color: lime;
+    z-index: 20;
+    bottom: 100px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+#loselbl{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    font-size: 100px;
+    color: red;
+    z-index: 20;
+    top: 0px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s;
+}
+#loselbl2{
+    width: 100%;
+    position: fixed;
+    text-align: center;
+    font-size: 30px;
+    color: red;
+    z-index: 20;
+    bottom: 100px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+#reloadBtn{
+    border-radius: 100%;
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+    z-index: 21;
+    background: #BEFF00;
+    opacity: 0;
+    pointer-events: none;
+}
+#reloadBtn:active{
+    background: #4F6B00;
+}
